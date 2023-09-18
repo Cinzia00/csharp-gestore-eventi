@@ -5,6 +5,9 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
-        }
+
+
+            Console.WriteLine();
+            Evento nuovoEvento = new Evento("asd", "20/09/2023", 21);
     }
 }
