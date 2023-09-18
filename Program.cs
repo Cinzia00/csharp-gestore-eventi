@@ -8,6 +8,12 @@
 
 
             Console.WriteLine();
-            Evento nuovoEvento = new Evento("asd", "20/09/2023", 21);
+            Evento nuovoEvento = new Evento("ciao", "25/09/2023", 12);
+
+            Console.WriteLine(nuovoEvento.DisdiciPosti(5));
+            Console.WriteLine(nuovoEvento.ToString());
+        }
+
+
     }
 }

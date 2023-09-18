@@ -10,9 +10,17 @@ namespace csharp_gestore_eventi
     {
 
         private string titolo;
-        private string data;
+        private DateTime data;
         public  int CapienzaMassima { get; private set; }
-        public int PostiPrenotati { get; private set; }
+        private int postiPrenotati;
+
+        public Evento(string titolo, string data, int postiTotali)
+        {
+            Titolo = titolo;
+            Data = DateTime.Parse(data);
+            CapienzaMassima = postiTotali;
+            PostiPrenotati = 0;
+        }
 
         public string Titolo
         {
@@ -24,12 +32,12 @@ namespace csharp_gestore_eventi
             {
                 if(titolo == "")
                 {
-                    Console.WriteLine("Indicare il titolo dell'evento");
+                    throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
-        public string Data
+        public DateTime Data
         {
             get
             {
@@ -37,26 +45,72 @@ namespace csharp_gestore_eventi
             }
             set
             {
-               DateTime dataOdierna = new DateTime();
-                dataOdierna =  DateTime.Now;
 
-                if (DateTime.CompareTo())
+                DateTime dataUtente = value;
+
+                DateTime dataOdierna = DateTime.Now;
+
+                if (dataUtente < dataOdierna)
                 {
-
+                    throw new ArgumentOutOfRangeException();
                 }
 
+                this.data = dataUtente;
+              
             }
+
         }
 
+        public int PostiPrenotati 
+        { 
+            get
+            {
+                return postiPrenotati;
+            }
+            set
+            {
+                if(postiPrenotati < 0) 
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                this.postiPrenotati = value;
+            }
 
 
-        public Evento(string titolo, string data, int PostiPrenotati)
+        }
+
+        public int PrenotaPosti(int numeroPosti)
         {
-            Titolo = titolo;
-            Data = data;
-            CapienzaMassima = 500;
-            PostiPrenotati = 0;
+            postiPrenotati += numeroPosti;
+            return postiPrenotati;
         }
+
+        public int DisdiciPosti(int postiPrenotati)
+        {
+
+            if(data < DateTime.Now || postiPrenotati == 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }else
+            {
+                CapienzaMassima -= postiPrenotati;
+                return CapienzaMassima;
+            }       
+            
+        }
+
+
+        public override string ToString()
+        {
+            return $"In data {data} ci sarà l'evento {titolo}";
+        }
+        
+
+
+
+
+  
 
 
     }
